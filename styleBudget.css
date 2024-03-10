@@ -1,7 +1,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden; 
+    overflow: hidden;
 }
 
 .main {
@@ -11,7 +11,7 @@ html, body {
     height: 100vh;
     position: relative;
     overflow: hidden;
-    background-image: url('vancouver.jpg');
+    background-image: url('vann.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -59,40 +59,43 @@ nav {
     text-decoration: none;
 }
 
-.calculator {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 20%);
-    width: 100%; 
-    max-height: 100%; 
+.budget {
+    width: 75%; 
     padding: 20px;
     background: rgba(255, 255, 255, 0.5);
-    overflow: auto; 
-    box-sizing: border-box; 
+    position: absolute; 
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
-table {
-    width: 30%;
-    border-collapse: collapse;
-    margin-bottom: 10px;
+/* Style the scrollbar as needed */
+.budget::-webkit-scrollbar {
+    width: 15px; /* Same as itinerary scrollbar width */
 }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+.budget::-webkit-scrollbar-track {
+    background: transparent; /* Same as itinerary */
 }
 
-th {
-    background-color: #f2f2f2;
+.budget::-webkit-scrollbar-thumb {
+    background: transparent; /* Invisible scrollbar thumb */
 }
 
-button {
-    margin-top: 10px;
-    cursor: pointer;
+.budget:hover::-webkit-scrollbar-thumb {
+    background: #b3b3b3; /* Scrollbar thumb appears on hover, same as itinerary */
 }
 
-input[type="number"] {
-    width: 100px;
+/* Align total prices with table text */
+.budget p {
+    position: relative; 
+    padding-left: 20px; /* You might need to adjust this to match your table's cell padding */
 }
+
+.budget table, .budget p {
+    padding-left: 20px; /* This should be the same as the padding of your table cells */
+}
+
+

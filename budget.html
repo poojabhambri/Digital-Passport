@@ -21,61 +21,147 @@
             </div>
         </nav>
 
-        <div class="calculator"></div>
-            <h1>Budget Calculator</h1>
+        <div class="budget">
+            <h1>Our Budget</h1>
+            <h2> </h2>
 
-            <!-- Plane Ticket Table -->
-            <h2>Plane Ticket</h2>
-            <table id="planeTicketTable">
+            <h1>Transportation</h1>
+            <table>
                 <tr>
-                    <th>Airline</th>
-                    <th>Price (CAD)</th>
+                    <th>Mode of Transport</th>
+                    <th>Price Total</th>
+                    <th>Price Per Person</th>
                 </tr>
-            
                 <tr>
-                    <td><input type="text" class="itemTitle"></td>
-                    <td><input type="number" class="itemPrice planeTicketPrice"></td>
+                    <td>Plane</td>
+                    <td>$1,166.80</td>
+                    <td>$233.36</td>
+                </tr>
+                <tr>
+                    <td>Car Rental</td>
+                    <td>$185.86</td>
+                    <td>$37.17</td>
+                </tr>
+                <tr>
+                    <td>Gas</td>
+                    <td>$201.40</td>
+                    <td>$40.28</td>
+                </tr>
+                <tr>
+                    <td>Ferry to Victoria</td>
+                    <td>$156.90</td>
+                    <td>$31.38</td>
+                </tr>
+                <tr>
+                    <td>Ferry to Victoria</td>
+                    <td>?</td>
+                    <td>?</td>
+                </tr>
+                <tr>
+                    <td>Public Transport</td>
+                    <td>$56.25</td>
+                    <td>$11.25</td>
                 </tr>
             </table>
-            <button onclick="calculateCategoryTotal('planeTicketPrice', 'planeTicketTotal')">Calculate</button>
-            <p id="planeTicketTotal">Total: $0</p>
 
-            <!-- Repeat the structure above for Transportation, Accommodations, Activities, Food -->
-            <!-- ... -->
+            <p><b>Total Transportation Price: </b>$1,767.21</p>
+            <h2> </h2>
+            <p><b>Total Transportation Price Per Person: </b>$353.44</p>
+            <h2> </h2>
 
-            <!-- Calculate Sum Total -->
-            <button onclick="calculateSumTotal()">Calculate Sum Total</button>
-            <p id="sumTotal">Total for Everything: $0</p>
+            <h1>Accommodations</h1>
+            <table>
+                <tr>
+                    <th>Hotel</th>
+                    <th>Price Total</th>
+                    <th>Price Per Person</th>
+                </tr>
+                <tr>
+                    <td>Hotel Zedd</td>
+                    <td>$542.00</td>
+                    <td>$108.40</td>
+                </tr>
+            </table>
+
+            <p><b>Total Accommodations Price: </b>$542.00</p>
+            <h2> </h2>
+            <p><b>Total Accommodations Price Per Person: </b>$108.40</p>
+            <h2> </h2>
+
+            <h1>Activities</h1>
+            <table>
+                <tr>
+                    <th>Activity</th>
+                    <th>Price Total</th>
+                    <th>Price Per Person</th>
+                </tr>
+                <tr>
+                    <td>Butchart Gardens</td>
+                    <td>$95.90</td>
+                    <td>$19.18</td>
+                </tr>
+                <tr>
+                    <td>Capilano Bridge</td>
+                    <td>$184.75</td>
+                    <td>$36.95</td>
+                </tr>
+                <tr>
+                    <td>Soul Skate</td>
+                    <td>$85.00</td>
+                    <td>$17.00</td>
+                </tr>
+                <tr>
+                    <td>Art Gallery</td>
+                    <td>$00.00</td>
+                    <td>$00.00</td>
+                </tr>
+                <tr>
+                    <td>Night Market</td>
+                    <td>?</td>
+                    <td>?</td>
+                </tr>
+            </table>
+
+            <p><b>Total Activities Price: </b>?</p>
+            <h2> </h2>
+            <p><b>Total Activities Price Per Person: </b>?</p>
+            <h2> </h2>
+
+            <h1>Food</h1>
+            <table>
+                <tr>
+                    <th>Establishment</th>
+                    <th>Price Total</th>
+                    <th>Price Per Person</th>
+                </tr>
+                <tr>
+                    <td>Groceries</td>
+                    <td>$50.00</td>
+                    <td>$10.00</td>
+                </tr>
+                <tr>
+                    <td>Tacofino</td>
+                    <td>$80.00</td>
+                    <td>$16.00</td>
+                </tr>
+                <tr>
+                    <td>Restaurant</td>
+                    <td>$250.00</td>
+                    <td>$50.00</td>
+                </tr>
+            </table>
+
+            <p><b>Total Food Price: </b>$380.00</p>
+            <h2> </h2>
+            <p><b>Total Food Price Per Person: </b>$76.00</p>
+            <h2> </h2>
+
+            <p><b>Total Trip Price: </b>$3,230.65</p>
+            <h2> </h2>
+            <p><b>Total Trip Price Per Person: </b>$692.80</p>
+            <h2> </h2>
+
         </div>
-
-        <script>
-            // Function to calculate total for a category
-            function calculateCategoryTotal(className, totalElementId) {
-                var prices = document.querySelectorAll('.' + className);
-                var total = 0;
-                prices.forEach(function(input) {
-                    var price = parseFloat(input.value);
-                    if (!isNaN(price)) {
-                        total += price;
-                    }
-                });
-                document.getElementById(totalElementId).textContent = 'Total: $' + total.toFixed(2);
-            }
-
-            // Function to calculate sum total of all categories
-            function calculateSumTotal() {
-                var categoryTotals = document.querySelectorAll('p[id$="Total"]');
-                var sumTotal = 0;
-                categoryTotals.forEach(function(totalElement) {
-                    var totalText = totalElement.textContent;
-                    var total = parseFloat(totalText.split('$')[1]);
-                    if (!isNaN(total)) {
-                        sumTotal += total;
-                    }
-                });
-                document.getElementById('sumTotal').textContent = 'Sum Total: $' + sumTotal.toFixed(2);
-            }
-        </script>
     </div>
 
 </body>
