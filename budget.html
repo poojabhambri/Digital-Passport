@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Budget</title>
+    <link rel="stylesheet" href="styleBudget.css">
+</head>
+
+<body> 
+    <div class="main">
+        <nav>
+            <div class="logo">
+                <img src="planeLogo.png" alt="logo">
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./gallery.html">Gallery</a></li>
+                    <li><a href = "./vancouvertrip.html">Itinerary</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="calculator"></div>
+            <h1>Budget Calculator</h1>
+
+            <!-- Plane Ticket Table -->
+            <h2>Plane Ticket</h2>
+            <table id="planeTicketTable">
+                <tr>
+                    <th>Airline</th>
+                    <th>Price (CAD)</th>
+                </tr>
+            
+                <tr>
+                    <td><input type="text" class="itemTitle"></td>
+                    <td><input type="number" class="itemPrice planeTicketPrice"></td>
+                </tr>
+            </table>
+            <button onclick="calculateCategoryTotal('planeTicketPrice', 'planeTicketTotal')">Calculate</button>
+            <p id="planeTicketTotal">Total: $0</p>
+
+            <!-- Repeat the structure above for Transportation, Accommodations, Activities, Food -->
+            <!-- ... -->
+
+            <!-- Calculate Sum Total -->
+            <button onclick="calculateSumTotal()">Calculate Sum Total</button>
+            <p id="sumTotal">Total for Everything: $0</p>
+        </div>
+
+        <script>
+            // Function to calculate total for a category
+            function calculateCategoryTotal(className, totalElementId) {
+                var prices = document.querySelectorAll('.' + className);
+                var total = 0;
+                prices.forEach(function(input) {
+                    var price = parseFloat(input.value);
+                    if (!isNaN(price)) {
+                        total += price;
+                    }
+                });
+                document.getElementById(totalElementId).textContent = 'Total: $' + total.toFixed(2);
+            }
+
+            // Function to calculate sum total of all categories
+            function calculateSumTotal() {
+                var categoryTotals = document.querySelectorAll('p[id$="Total"]');
+                var sumTotal = 0;
+                categoryTotals.forEach(function(totalElement) {
+                    var totalText = totalElement.textContent;
+                    var total = parseFloat(totalText.split('$')[1]);
+                    if (!isNaN(total)) {
+                        sumTotal += total;
+                    }
+                });
+                document.getElementById('sumTotal').textContent = 'Sum Total: $' + sumTotal.toFixed(2);
+            }
+        </script>
+    </div>
+
+</body>
+</html>

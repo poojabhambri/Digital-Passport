@@ -1,0 +1,98 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; 
+}
+
+.main {
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-image: url('vancouver.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none; 
+    box-sizing: border-box;
+}
+
+nav {
+    width: 100%;
+    position: sticky;
+    margin: 0 auto;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+}
+
+.logo {
+    flex-basis: 20%
+}
+
+.logo img {
+    width: 90px;
+    border: 1% solid white;
+    border-radius: 4%;
+    padding: 5%;
+}
+
+.nav-links {
+    flex: 1;
+    text-align: right;
+}
+
+.nav-links ul {
+    margin-top: 30px; 
+}
+
+.nav-links ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+}
+
+.nav-links ul li a { 
+    color: black;
+    text-decoration: none;
+}
+
+.calculator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    width: 100%; 
+    max-height: 100%; 
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    overflow: auto; 
+    box-sizing: border-box; 
+}
+
+table {
+    width: 30%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+button {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+input[type="number"] {
+    width: 100px;
+}
