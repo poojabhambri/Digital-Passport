@@ -126,7 +126,7 @@ nav {
 
 /* day navigation at the top of itinerary box */
 .day-navigation {
-    position: sticky;
+    position: relative;
     top: 0;
     z-index: 10;
     text-align: center;
