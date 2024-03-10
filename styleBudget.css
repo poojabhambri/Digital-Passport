@@ -136,3 +136,13 @@ colgroup {
 .budget h1:first-of-type {
     padding-top: 60px;
 }
+
+.budget a.budget-link {
+    color: black;
+    text-decoration: none;
+    font-style: italic;
+}
+
+.budget a.budget-link:hover {
+    text-decoration: underline;
+}
