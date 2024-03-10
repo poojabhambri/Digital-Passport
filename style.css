@@ -59,68 +59,92 @@ nav {
     color: black;
     text-decoration: none;
 }
-/* html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-   */
 
-/* .itinerary {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 70%);
-    width: 50%;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.5);
-  }
-  
-   */
-   .itinerary {
+.itinerary {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, 20%);
-    width: 75%; 
-    max-height: 240%; 
+    width: 75%;
+    max-height: 240%;
     padding: 20px;
     background: rgba(255, 255, 255, 0.5);
-    overflow: auto; 
+    overflow-y: auto; 
     box-sizing: border-box;
-  }
-  
-  .itinerary::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .itinerary:hover::-webkit-scrollbar {
-    display: block;
-  }
+}
 
-  .itinerary h2 {
-    margin-top: 40px; 
-  }
+/* Invisible scrollbar until you hover on it*/
+.itinerary::-webkit-scrollbar {
+    width: 15px;
+}
 
-  .itinerary p {
-    position: relative; 
+.itinerary::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.itinerary::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+.itinerary:hover::-webkit-scrollbar-thumb {
+    background: #b3b3b3;
+}
+
+.itinerary h2 {
+    margin-top: 40px;
+}
+
+.itinerary p {
+    position: relative;
     margin-left: 0;
-    padding-left: 20px; 
+    padding-left: 20px;
 }
 
 .itinerary p::before {
-    content: ''; 
+    content: '';
     position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
     width: 4px;
-    height: 4px; 
-    background-color: black; 
-    border-radius: 50%; 
+    height: 4px;
+    background-color: black;
+    border-radius: 50%;
     margin-left: 5px;
-    margin-right: 5px; 
+    margin-right: 5px;
 }
 
+.itinerary a.itinerary-link {
+    color: inherit;
+    text-decoration: none;
+    font-style: italic;
+}
+
+.itinerary a.itinerary-link:hover {
+    text-decoration: underline;
+}
+
+/* day navigation at the top of itinerary box */
+.day-navigation {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    text-align: center;
+    padding: 10px;
+}
+
+.day-navigation a {
+    margin: 0 10px;
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.day-navigation a:hover {
+    text-decoration: underline;
+}
+
+/* top padding for the first heading to make space for the day navigation */
+.itinerary h1:first-of-type {
+    padding-top: 60px;
+}
