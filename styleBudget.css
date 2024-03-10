@@ -105,5 +105,9 @@ nav {
 }
 
 .budget h1:first-of-type {
-    padding-top: 60px;
+    padding-top: 20px;
+}
+
+colgroup {
+    width: 100px;
 }
