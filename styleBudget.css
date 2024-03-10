@@ -1,22 +1,24 @@
-html, body {
+.vancouver-page .main {
+    background-image: url('vann.jpg'); 
+}
+
+*{
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .main {
-    margin: 0;
-    font-family: 'Times New Roman', Times, serif;
     width: 100%;
     height: 100vh;
     position: relative;
     overflow: hidden;
-    background-image: url('vann.jpg');
+    background-image: url('mountains.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    border: none; 
-    box-sizing: border-box;
+    height: 100vh;
+    margin:0;
 }
 
 nav {
@@ -27,7 +29,6 @@ nav {
     display: flex;
     align-items: flex-start;
 }
-
 .logo {
     flex-basis: 20%
 }
@@ -60,42 +61,49 @@ nav {
 }
 
 .budget {
-    width: 75%; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 10%);
+    width: 75%;
+    max-height: 310%;
     padding: 20px;
     background: rgba(255, 255, 255, 0.5);
-    position: absolute; 
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    overflow-y: auto;
+    overflow-y: auto; 
     box-sizing: border-box;
 }
 
-/* Style the scrollbar as needed */
+/* Invisible scrollbar until you hover on it*/
 .budget::-webkit-scrollbar {
-    width: 15px; /* Same as itinerary scrollbar width */
+    width: 15px;
 }
 
 .budget::-webkit-scrollbar-track {
-    background: transparent; /* Same as itinerary */
+    background: transparent;
 }
 
 .budget::-webkit-scrollbar-thumb {
-    background: transparent; /* Invisible scrollbar thumb */
+    background: transparent;
 }
 
 .budget:hover::-webkit-scrollbar-thumb {
-    background: #b3b3b3; /* Scrollbar thumb appears on hover, same as itinerary */
+    background: #b3b3b3;
 }
 
-/* Align total prices with table text */
+.budget h2 {
+    margin-top: 40px;
+}
+
 .budget p {
-    position: relative; 
-    padding-left: 20px; /* You might need to adjust this to match your table's cell padding */
+    position: relative;
+    margin-left: 0;
+    padding-left: 20px;
 }
 
 .budget table, .budget p {
-    padding-left: 20px; /* This should be the same as the padding of your table cells */
+    padding-left: 20px;
 }
 
-
+.budget h1:first-of-type {
+    padding-top: 60px;
+}
