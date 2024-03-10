@@ -125,3 +125,12 @@ nav {
     margin-right: 5px; 
 }
 
+.itinerary a.itinerary-link {
+    color: inherit; 
+    text-decoration: none; 
+    font-style: italic;
+}
+
+.itinerary a.itinerary-link:hover {
+    text-decoration: underline; 
+}
