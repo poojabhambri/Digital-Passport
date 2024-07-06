@@ -118,9 +118,9 @@ nav {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, 20%);
+    transform: translate(-50%, 10%);
     width: 75%;
-    max-height: 240%;
+    max-height: 310%;
     padding: 20px;
     background: rgba(255, 255, 255, 0.5);
     overflow-y: auto; 
@@ -201,6 +201,16 @@ nav {
 /* top padding for the first heading to make space for the day navigation */
 .itinerary h1:first-of-type {
     padding-top: 60px;
+}
+
+.word h1{
+    position: absolute;
+    top: 50px;
+    left: 120px;
+    font-family: 'Lucida Handwriting', cursive; 
+    font-size: 5.5em;
+    opacity: 70%;
+    color: rgb(33, 31, 31);
 }
 
 .content {
