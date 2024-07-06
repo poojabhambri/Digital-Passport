@@ -8,6 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js" type="module"></script>
     <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-storage.js" type="module"></script>
 </head>
+
 <body class="vancouver-page"> 
     <div class="main">
         <nav>
@@ -37,20 +38,20 @@
             </div>
             <div class="gallery" id="gallery"></div>
         </div>
-        
-        <!-- Close enlarged images -->
+
+        <!-- Modal for image enlargement -->
         <div id="imageModal" class="modal">
             <span class="close">&times;</span>
             <img class="modal-content" id="enlargedImg">
+            <div id="caption"></div>
         </div>
-    </div>
 
     <script type="module">
         // Import Firebase SDKs as ES modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js";
-        import { getStorage, ref, listAll, getDownloadURL, uploadBytes } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-storage.js";
+        import { getStorage, ref, listAll, getDownloadURL, uploadBytes, deleteObject } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-storage.js";
 
-        // Your web app's Firebase configuration
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCl4bd1A-6-HRYIcbgGfT02mQI73UWSa0s",
             authDomain: "digitalpassport-e49cb.firebaseapp.com",
@@ -66,49 +67,90 @@
 
         // Function to display images in the gallery
         function addImageToGallery(src, filename) {
-                const imgContainer = document.createElement('div');
-                imgContainer.className = 'img-container';
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'img-container';
 
-                const img = document.createElement('img');
-                img.src = src;
-                img.alt = filename; // Use filename or any appropriate alt text
-                img.onclick = function() {
-                    modal.style.display = 'block';
-                    modalImg.src = src;
-                };
-                imgContainer.appendChild(img);
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = filename;
 
-                gallery.appendChild(imgContainer);
-        } 
+            // Delete button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.innerText = 'Delete';
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.onclick = function() {
+                deleteImage(filename);
+            };
+
+            // Add click event to image for enlargement
+            img.onclick = function() {
+                const modal = document.getElementById('imageModal');
+                const modalImg = document.getElementById('enlargedImg');
+                const captionText = document.getElementById('caption');
+                modal.style.display = "block";
+                modalImg.src = src;
+                captionText.innerHTML = filename;
+
+                const span = document.getElementsByClassName('close')[0];
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+            };
+
+            imgContainer.appendChild(img);
+            imgContainer.appendChild(deleteBtn);
+
+            const gallery = document.getElementById('gallery');
+            gallery.insertBefore(imgContainer, gallery.firstChild);
+        }
 
         // Function to fetch images from Firebase Storage
         function fetchImagesFromStorage() {
-                const storageRef = ref(storage, 'uploads');
-                listAll(storageRef)
-                    .then((result) => {
-                        result.items.forEach((imageRef) => {
-                            getDownloadURL(imageRef)
-                                .then((url) => {
-                                    addImageToGallery(url, imageRef.name);
-                                })
-                                .catch((error) => {
-                                    console.error('Error getting download URL:', error);
-                                });
+            const storageRef = ref(storage, 'uploads');
+            listAll(storageRef)
+                .then((result) => {
+                    const imagePromises = result.items.map((imageRef) => {
+                        return getDownloadURL(imageRef).then((url) => {
+                            const filename = imageRef.name;
+                            const timestamp = parseInt(filename.split('_')[0], 10); // Extract timestamp from filename
+                            return { url, filename, timestamp };
                         });
-                    })
-                    .catch((error) => {
-                        console.error('Error listing images:', error);
                     });
+
+                    Promise.all(imagePromises)
+                        .then((images) => {
+                            images.sort((a, b) => b.timestamp - a.timestamp); // Sort images by timestamp (newest to oldest)
+                            gallery.innerHTML = ''; // Clear existing gallery
+                            images.forEach((image) => {
+                                addImageToGallery(image.url, image.filename);
+                            });
+                        })
+                        .catch((error) => {
+                            console.error('Error getting download URLs:', error);
+                        });
+                })
+                .catch((error) => {
+                    console.error('Error listing images:', error);
+                });
         }
 
-        
-        fetchImagesFromStorage();
+        // Function to delete an image from Firebase Storage
+        function deleteImage(filename) {
+            const storageRef = ref(storage, `uploads/${filename}`);
+            deleteObject(storageRef)
+                .then(() => {
+                    console.log('File deleted successfully');
+                    // Refresh the gallery after deletion
+                    gallery.innerHTML = '';
+                    fetchImagesFromStorage();
+                })
+                .catch((error) => {
+                    console.error('Error deleting file:', error);
+                });
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
             const gallery = document.getElementById('gallery');
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('enlargedImg');
-            const span = document.getElementsByClassName('close')[0];
 
             // Function to upload image to Firebase Storage
             document.getElementById('uploadBtn').addEventListener('click', function() {
@@ -116,6 +158,7 @@
                 const uploadTasks = [];
 
                 for (const file of files) {
+                    const timestamp = Date.now();
                     const storageRef = ref(storage, `uploads/${file.name}`);
                     const uploadTask = uploadBytes(storageRef, file);
 
@@ -132,21 +175,8 @@
                     });
             });
 
-            
+            fetchImagesFromStorage();
 
-            
-
-            // Close modal when clicking on close button (x)
-            span.onclick = function() {
-                modal.style.display = 'none';
-            };
-
-            // Close modal when clicking outside of the modal
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = 'none';
-                }
-            };
         });
     </script>
 </body>
