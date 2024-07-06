@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-storage.js" type="module"></script>
 </head>
+
 <body class="vancouver-page"> 
     <div class="main">
         <nav>
-            <!--display logo-->
+            <!-- Display logo -->
             <div class="logo">
                 <a href="./index.html">
                     <img src="planeLogo.png" alt="logo">
                 </a>
             </div>
-            <!--display navigation links-->
+            <!-- Display navigation links -->
             <div class="nav-links">
                 <ul>
                     <li><a href="./index.html">Home</a></li>
@@ -26,113 +31,153 @@
         
         <div class="content">
             <h1>Photo Gallery</h1>
-            <!--allow uploads-->
+            <!-- Allow uploads -->
             <div class="upload-container">
                 <input type="file" id="fileInput" accept="image/*" multiple>
                 <button id="uploadBtn">Upload</button>
             </div>
             <div class="gallery" id="gallery"></div>
         </div>
-        
-        <!--close enlarged images-->
+
+        <!-- Modal for image enlargement -->
         <div id="imageModal" class="modal">
             <span class="close">&times;</span>
             <img class="modal-content" id="enlargedImg">
+            <div id="caption"></div>
         </div>
-    </div>
 
-    <script>
+    <script type="module">
+        // Import Firebase SDKs as ES modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js";
+        import { getStorage, ref, listAll, getDownloadURL, uploadBytes, deleteObject } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-storage.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCl4bd1A-6-HRYIcbgGfT02mQI73UWSa0s",
+            authDomain: "digitalpassport-e49cb.firebaseapp.com",
+            projectId: "digitalpassport-e49cb",
+            storageBucket: "digitalpassport-e49cb.appspot.com",
+            messagingSenderId: "1075577493433",
+            appId: "1:1075577493433:web:1ea586b546d503dac98868"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const storage = getStorage(app);
+
+        // Function to display images in the gallery
+        function addImageToGallery(src, filename) {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'img-container';
+
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = filename;
+
+            // Delete button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.innerText = 'Delete';
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.onclick = function() {
+                deleteImage(filename);
+            };
+
+            // Add click event to image for enlargement
+            img.onclick = function() {
+                const modal = document.getElementById('imageModal');
+                const modalImg = document.getElementById('enlargedImg');
+                const captionText = document.getElementById('caption');
+                modal.style.display = "block";
+                modalImg.src = src;
+                captionText.innerHTML = filename;
+
+                const span = document.getElementsByClassName('close')[0];
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+            };
+
+            imgContainer.appendChild(img);
+            imgContainer.appendChild(deleteBtn);
+
+            const gallery = document.getElementById('gallery');
+            gallery.insertBefore(imgContainer, gallery.firstChild);
+        }
+
+        // Function to fetch images from Firebase Storage
+        function fetchImagesFromStorage() {
+            const storageRef = ref(storage, 'uploads');
+            listAll(storageRef)
+                .then((result) => {
+                    const imagePromises = result.items.map((imageRef) => {
+                        return getDownloadURL(imageRef).then((url) => {
+                            const filename = imageRef.name;
+                            const timestamp = parseInt(filename.split('_')[0], 10); // Extract timestamp from filename
+                            return { url, filename, timestamp };
+                        });
+                    });
+
+                    Promise.all(imagePromises)
+                        .then((images) => {
+                            images.sort((a, b) => b.timestamp - a.timestamp); // Sort images by timestamp (newest to oldest)
+                            gallery.innerHTML = ''; // Clear existing gallery
+                            images.forEach((image) => {
+                                addImageToGallery(image.url, image.filename);
+                            });
+                        })
+                        .catch((error) => {
+                            console.error('Error getting download URLs:', error);
+                        });
+                })
+                .catch((error) => {
+                    console.error('Error listing images:', error);
+                });
+        }
+
+        // Function to delete an image from Firebase Storage
+        function deleteImage(filename) {
+            const storageRef = ref(storage, `uploads/${filename}`);
+            deleteObject(storageRef)
+                .then(() => {
+                    console.log('File deleted successfully');
+                    // Refresh the gallery after deletion
+                    gallery.innerHTML = '';
+                    fetchImagesFromStorage();
+                })
+                .catch((error) => {
+                    console.error('Error deleting file:', error);
+                });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const gallery = document.getElementById('gallery');
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('enlargedImg');
-            const span = document.getElementsByClassName('close')[0];
 
-            // Fetch and display images from server
-            fetch('http://localhost:3000/images')
-                .then(response => response.json())
-                .then(files => {
-                    files.forEach(file => {
-                        addImageToGallery(`http://localhost:3000/image-gallery/public/uploads/${file}`, file);
-                    });
-                });
-
+            // Function to upload image to Firebase Storage
             document.getElementById('uploadBtn').addEventListener('click', function() {
                 const files = document.getElementById('fileInput').files;
-                const formData = new FormData();
+                const uploadTasks = [];
+
                 for (const file of files) {
-                    formData.append('photos', file);
+                    const timestamp = Date.now();
+                    const storageRef = ref(storage, `uploads/${file.name}`);
+                    const uploadTask = uploadBytes(storageRef, file);
+
+                    uploadTasks.push(uploadTask);
                 }
 
-                fetch('http://localhost:3000/upload', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    data.files.forEach(file => {
-                        addImageToGallery(`http://localhost:3000/image-gallery/public/uploads/${file}`, file);
+                Promise.all(uploadTasks)
+                    .then(() => {
+                        console.log('Files uploaded successfully!');
+                        fetchImagesFromStorage(); // Call function to fetch images after upload
+                    })
+                    .catch(error => {
+                        console.error('Error uploading files:', error);
                     });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
             });
 
-            function addImageToGallery(src, filename) {
-                const imgContainer = document.createElement('div');
-                imgContainer.className = 'img-container';
+            fetchImagesFromStorage();
 
-                const img = document.createElement('img');
-                img.src = src;
-                img.onerror = function() {
-                    img.style.display = 'none'; 
-                };
-                img.onclick = function() {
-                    modal.style.display = 'block';
-                    modalImg.src = src;
-                };
-                imgContainer.appendChild(img);
-
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Delete';
-                deleteButton.onclick = function() {
-                    deleteImage(filename);
-                    imgContainer.remove();
-                };
-                imgContainer.appendChild(deleteButton);
-
-                gallery.appendChild(imgContainer);
-            }
-
-            // Delete images
-            function deleteImage(filename) {
-                fetch(`http://localhost:3000/delete/${filename}`, {
-                    method: 'DELETE'
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            }
-
-            // When the user clicks on x close the modal
-            span.onclick = function() {
-                modal.style.display = 'none';
-            };
-
-            // When the user clicks anywhere outside of the modal close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = 'none';
-                }
-            };
         });
     </script>
-
 </body>
 </html>

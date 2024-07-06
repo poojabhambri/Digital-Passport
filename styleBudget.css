@@ -29,6 +29,7 @@ nav {
     display: flex;
     align-items: flex-start;
 }
+
 .logo {
     flex-basis: 20%
 }
