@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="vanstyle.css">
     <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js" type="module"></script>
     <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-storage.js" type="module"></script>
 </head>
@@ -31,15 +31,20 @@
         
         <div class="content">
             <h1>Photo Gallery</h1>
+            <!-- Number of images uploaded -->
+            <div class="count-container">
+                <p class="image-count">Number of images uploaded: <span id="imageCount">0</span></p>
+            </div>
+        
             <!-- Allow uploads -->
             <div class="upload-container">
-                <p>Number of images uploaded: <span id="imageCount">0</span></p>
-
                 <input type="file" id="fileInput" accept="image/*" multiple>
+                <label for="fileInput" class="file-label">Choose Files</label>
                 <button id="uploadBtn">Upload</button>
             </div>
+        
             <div class="gallery" id="gallery"></div>
-        </div>
+        </div>        
 
         <!-- Modal for image enlargement -->
         <div id="imageModal" class="modal">
@@ -150,19 +155,25 @@
 
         // Function to delete an image from Firebase Storage
         function deleteImage(filename) {
-            const storageRef = ref(storage, `uploads/${filename}`);
-            deleteObject(storageRef)
-                .then(() => {
-                    console.log('File deleted successfully');
-                    // Refresh the gallery after deletion
-                    gallery.innerHTML = '';
-                    fetchImagesFromStorage();
-                    // Update image count after deleting images
-                    updateImageCount();
-                })
-                .catch((error) => {
-                    console.error('Error deleting file:', error);
-                });
+            const confirmDelete = window.confirm('Are you sure you want to delete this image?');
+    
+            if (confirmDelete) {
+                const storageRef = ref(storage, `uploads/${filename}`);
+                deleteObject(storageRef)
+                    .then(() => {
+                        console.log('File deleted successfully');
+                        // Refresh the gallery after deletion
+                        gallery.innerHTML = '';
+                        fetchImagesFromStorage();
+                        // Update image count after deleting images
+                        updateImageCount();
+                    })
+                    .catch((error) => {
+                        console.error('Error deleting file:', error);
+                    });
+            } else {
+                console.log('Deletion canceled');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
