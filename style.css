@@ -70,12 +70,40 @@ nav {
     color: black; 
 }
 
+.imageContainerSylvan {
+    position: relative;
+    text-align: center;
+}
+
+.imageContainerSylvan img {
+    max-width: 60%; /* Ensure the image takes up the available width */
+    height: auto; /* Maintain aspect ratio */
+    border: 5px solid #000;
+    border-radius: 15%;
+}
+
+.imageContainerSylvan a {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none; 
+    color: black; 
+}
+
 @media only screen and (max-width: 768px) {
     .gridButtons {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
     .imageContainerVan img {
+        max-width: 70%; /* Adjust image size for smaller screens */
+    }
+    .imageContainerSylvan img {
         max-width: 70%; /* Adjust image size for smaller screens */
     }
 }
@@ -86,6 +114,9 @@ nav {
         grid-template-columns: 1fr;
     }
     .imageContainerVan img {
+        max-width: 80%; /* Adjust image size for smaller screens */
+    }
+    .imageContainerSylvan img {
         max-width: 80%; /* Adjust image size for smaller screens */
     }
 }
