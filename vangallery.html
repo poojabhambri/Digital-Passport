@@ -33,6 +33,8 @@
             <h1>Photo Gallery</h1>
             <!-- Allow uploads -->
             <div class="upload-container">
+                <p>Number of images uploaded: <span id="imageCount">0</span></p>
+
                 <input type="file" id="fileInput" accept="image/*" multiple>
                 <button id="uploadBtn">Upload</button>
             </div>
@@ -64,6 +66,7 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const storage = getStorage(app);
+        const gallery = document.getElementById('gallery');
 
         // Function to display images in the gallery
         function addImageToGallery(src, filename) {
@@ -100,8 +103,10 @@
             imgContainer.appendChild(img);
             imgContainer.appendChild(deleteBtn);
 
-            const gallery = document.getElementById('gallery');
             gallery.insertBefore(imgContainer, gallery.firstChild);
+
+            // Update image count
+            updateImageCount();
         }
 
         // Function to fetch images from Firebase Storage
@@ -124,6 +129,8 @@
                             images.forEach((image) => {
                                 addImageToGallery(image.url, image.filename);
                             });
+                            // Update image count after fetching images
+                            updateImageCount();
                         })
                         .catch((error) => {
                             console.error('Error getting download URLs:', error);
@@ -132,6 +139,13 @@
                 .catch((error) => {
                     console.error('Error listing images:', error);
                 });
+        }
+
+        // Function to update image count
+        function updateImageCount() {
+            const imageCountSpan = document.getElementById('imageCount');
+            const imageCount = gallery.children.length;
+            imageCountSpan.textContent = imageCount;
         }
 
         // Function to delete an image from Firebase Storage
@@ -143,6 +157,8 @@
                     // Refresh the gallery after deletion
                     gallery.innerHTML = '';
                     fetchImagesFromStorage();
+                    // Update image count after deleting images
+                    updateImageCount();
                 })
                 .catch((error) => {
                     console.error('Error deleting file:', error);
@@ -150,8 +166,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            const gallery = document.getElementById('gallery');
-
             // Function to upload image to Firebase Storage
             document.getElementById('uploadBtn').addEventListener('click', function() {
                 const files = document.getElementById('fileInput').files;
@@ -176,7 +190,6 @@
             });
 
             fetchImagesFromStorage();
-
         });
     </script>
 </body>
