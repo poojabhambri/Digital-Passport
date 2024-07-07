@@ -160,8 +160,7 @@ nav {
 }
 
 .content {
-    max-width: 800px;
-    width: 100%;
+    width: 90%;
     text-align: center;
     margin: 20px auto;
 }
@@ -210,14 +209,15 @@ nav {
 }
 
 .gallery {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Creates 5 equal columns */
     gap: 10px;
-    justify-content: center;
+    width: 100%; /* Ensures the gallery takes up the full width of its container */
+    margin: 0 auto; /* Centers the gallery if it has a max-width */
 }
 
 .gallery img {
-    max-width: 200px;
+    width: 100%; /* Makes images responsive within their grid cells */
     height: auto;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -231,7 +231,7 @@ nav {
 
 .img-container img {
     display: block;
-    max-width: 200px;
+    width: 100%; /* Ensures the image takes up the full width of the container */
     height: auto;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -263,6 +263,8 @@ nav {
     animation-name: zoom;
     animation-duration: 0.6s;
 }
+
+
 
 @keyframes zoom {
     from {transform: scale(0)} 
