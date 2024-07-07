@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vancouver Gallery</title>
-    <link rel="stylesheet" href="vanstyle.css">
-    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js" type="module"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-storage.js" type="module"></script>
+    <title>Sylvan Gallery</title>
+    <link rel="stylesheet" href="sylvanstyle.css">
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js" type="module"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-storage.js" type="module"></script> -->
 </head>
 
-<body class="vancouver-page"> 
+<body class="sylvan-page"> 
     <div class="main">
         <nav>
             <!-- Display logo -->
@@ -22,9 +22,9 @@
             <div class="nav-links">
                 <ul>
                     <li><a href="./index.html">Home</a></li>
-                    <li><a href="./vanbudget.html">Budget</a></li>
-                    <li><a href="./vancouveritinerary.html">Itinerary</a></li>
-                    <li><a href="./vangallery.html">Gallery</a></li>
+                    <li><a href="./sylvanbudget.html">Budget</a></li>
+                    <li><a href="./sylvanitinerary.html">Itinerary</a></li>
+                    <li><a href="./sylvangallery.html">Gallery</a></li>
                 </ul>
             </div>
         </nav>
@@ -55,18 +55,18 @@
 
     <script type="module">
         // Import Firebase SDKs as ES modules
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js";
-        import { getStorage, ref, listAll, getDownloadURL, uploadBytes, deleteObject } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-storage.js";
+        // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js";
+        // import { getStorage, ref, listAll, getDownloadURL, uploadBytes, deleteObject } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-storage.js";
 
         // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCl4bd1A-6-HRYIcbgGfT02mQI73UWSa0s",
-            authDomain: "digitalpassport-e49cb.firebaseapp.com",
-            projectId: "digitalpassport-e49cb",
-            storageBucket: "digitalpassport-e49cb.appspot.com",
-            messagingSenderId: "1075577493433",
-            appId: "1:1075577493433:web:1ea586b546d503dac98868"
-        };
+        // const firebaseConfig = {
+        //     apiKey: "AIzaSyCl4bd1A-6-HRYIcbgGfT02mQI73UWSa0s",
+        //     authDomain: "digitalpassport-e49cb.firebaseapp.com",
+        //     projectId: "digitalpassport-e49cb",
+        //     storageBucket: "digitalpassport-e49cb.appspot.com",
+        //     messagingSenderId: "1075577493433",
+        //     appId: "1:1075577493433:web:1ea586b546d503dac98868"
+        // };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
