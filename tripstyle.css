@@ -7,7 +7,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    margin:0;
+    margin: 0;
 }
 
 .sylvan-page .main {
@@ -19,10 +19,10 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    margin:0;
+    margin: 0;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: 'Times New Roman', Times, serif;
@@ -42,7 +42,7 @@ nav {
 }
 
 .logo {
-    flex-basis: 20%
+    flex-basis: 20%;
 }
 
 .logo img {
@@ -85,7 +85,7 @@ nav {
     box-sizing: border-box;
 }
 
-/* Invisible scrollbar until you hover on it*/
+/* Invisible scrollbar until you hover on it */
 .itinerary::-webkit-scrollbar {
     width: 15px;
 }
@@ -136,7 +136,7 @@ nav {
     text-decoration: underline;
 }
 
-/* day navigation at the top of itinerary box */
+/* Day navigation at the top of itinerary box */
 .day-navigation {
     position: relative;
     top: 0;
@@ -156,12 +156,12 @@ nav {
     text-decoration: underline;
 }
 
-/* top padding for the first heading to make space for the day navigation */
+/* Top padding for the first heading to make space for the day navigation */
 .itinerary h1:first-of-type {
     padding-top: 60px;
 }
 
-.word h1{
+.word h1 {
     position: absolute;
     top: 50px;
     left: 120px;
@@ -277,11 +277,9 @@ nav {
     animation-duration: 0.6s;
 }
 
-
-
 @keyframes zoom {
-    from {transform: scale(0)} 
-    to {transform: scale(1)}
+    from {transform: scale(0);} 
+    to {transform: scale(1);}
 }
 
 .close {
@@ -314,7 +312,7 @@ nav {
     box-sizing: border-box;
 }
 
-/* Invisible scrollbar until you hover on it*/
+/* Invisible scrollbar until you hover on it */
 .budget::-webkit-scrollbar {
     width: 15px;
 }
@@ -353,7 +351,21 @@ colgroup {
     width: 100px;
 }
 
-/* category navigation at the top of itinerary box */
+/* Table alignment for budget section */
+.budget table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.budget table th, .budget table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+/* Category navigation at the top of itinerary box */
 .category-navigation {
     position: relative;
     top: 0;
@@ -373,7 +385,7 @@ colgroup {
     text-decoration: underline;
 }
 
-/* top padding for the first heading to make space for the category navigation */
+/* Top padding for the first heading to make space for the category navigation */
 .budget h1:first-of-type {
     padding-top: 60px;
 }
@@ -398,19 +410,4 @@ colgroup {
     color: white;
     font-weight: bold;
     font-size: 20px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-}
-
-.next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-.prev:hover, .next:hover, .prev:focus,
-.next:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-} 
+    transition: 
