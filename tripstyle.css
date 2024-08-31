@@ -1,29 +1,5 @@
-.vancouver-page .main {
-    background-image: url('./images/vann.jpg'); 
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    overflow: auto;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin: 0;
-}
-
-.sylvan-page .main {
-    background-image: url('./images/sylvan.jpg'); 
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    overflow: auto;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin: 0;
-}
-
-.atmg-page .main {
-    background-image: url('./images/abraham.jpg'); 
+.mystery-page .main {
+    background-image: url('./images/mystery.jpg'); 
     width: 100%;
     height: 100vh;
     position: relative;
@@ -46,8 +22,32 @@
     margin: 0;
 }
 
-.mystery-page .main {
-    background-image: url('./images/mystery.jpg'); 
+.atmg-page .main {
+    background-image: url('./images/abraham.jpg'); 
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: auto;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+}
+
+.sylvan-page .main {
+    background-image: url('./images/sylvan.jpg'); 
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: auto;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+}
+
+.vancouver-page .main {
+    background-image: url('./images/vann.jpg'); 
     width: 100%;
     height: 100vh;
     position: relative;
