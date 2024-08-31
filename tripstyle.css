@@ -34,6 +34,30 @@
     margin: 0;
 }
 
+.portugal-page .main {
+    background-image: url('./images/portugal.jpg'); 
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: auto;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+}
+
+.mystery-page .main {
+    background-image: url('./images/mystery.jpg'); 
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: auto;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -422,5 +446,5 @@ colgroup {
     color: white;
     font-weight: bold;
     font-size: 20px;
-    transition: 
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Specify the transition properties */
 }
