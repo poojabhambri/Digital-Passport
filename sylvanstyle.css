@@ -160,8 +160,7 @@ nav {
 }
 
 .content {
-    max-width: 800px;
-    width: 100%;
+    width: 90%;
     text-align: center;
     margin: 20px auto;
 }
@@ -210,14 +209,15 @@ nav {
 }
 
 .gallery {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Creates 5 equal columns */
     gap: 10px;
-    justify-content: center;
+    width: 100%; /* Ensures the gallery takes up the full width of its container */
+    margin: 0 auto; /* Centers the gallery if it has a max-width */
 }
 
 .gallery img {
-    max-width: 200px;
+    width: 100%; /* Makes images responsive within their grid cells */
     height: auto;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -231,7 +231,7 @@ nav {
 
 .img-container img {
     display: block;
-    max-width: 200px;
+    width: 100%; /* Ensures the image takes up the full width of the container */
     height: auto;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -255,14 +255,17 @@ nav {
 .modal-content {
     margin: auto;
     display: block;
-    width: 80%;
-    max-width: 700px;
+    width: auto;
+    max-width: 100%;
+    max-height: 90vh;
 }
 
 .modal-content, #caption {
     animation-name: zoom;
     animation-duration: 0.6s;
 }
+
+
 
 @keyframes zoom {
     from {transform: scale(0)} 
@@ -372,3 +375,30 @@ colgroup {
 .budget a.budget-link:hover {
     text-decoration: underline;
 }
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover, .prev:focus,
+.next:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+} 
