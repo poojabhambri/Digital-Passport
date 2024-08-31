@@ -1,5 +1,5 @@
 .vancouver-page .main {
-    background-image: url('vann.jpg'); 
+    background-image: url('./images/vann.jpg'); 
     width: 100%;
     height: 100vh;
     position: relative;
@@ -11,7 +11,7 @@
 }
 
 .sylvan-page .main {
-    background-image: url('sylvan.jpg'); 
+    background-image: url('./images/sylvan.jpg'); 
     width: 100%;
     height: 100vh;
     position: relative;
@@ -411,3 +411,4 @@ colgroup {
     font-weight: bold;
     font-size: 20px;
     transition: 
+}
