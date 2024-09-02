@@ -78,10 +78,10 @@ function openModal(src, filename) {
     const prev = document.getElementsByClassName('prev')[0];
     const next = document.getElementsByClassName('next')[0];
     prev.onclick = function() {
-        navigate(-1);
+        navigate(1);
     }
     next.onclick = function() {
-        navigate(1);
+        navigate(-1);
     }
 }
 
